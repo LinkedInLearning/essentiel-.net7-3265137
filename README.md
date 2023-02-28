@@ -8,6 +8,10 @@ Ce dossier Repository est lié au cours `Nom final de la formation`. Le cours en
 
 DESCRIPTION DE LA FORMATION
 
+Ce cours est intégré à GitHub Codespaces, un environnement de développement instantané « dans le nuage » qui offre toutes les fonctionnalités de votre IDE préféré sans nécessiter de configuration sur une machine locale. Avec Codespaces, vous pouvez vous exercer à partir de n'importe quelle machine, à tout moment, tout en utilisant un outil que vous êtes susceptible de rencontrer sur votre lieu de travail.  
+Chaque épisode de la série Level Up offre au moins 12 occasions de s'exercer à la programmation à différents niveaux de difficulté, afin que vous puissiez vous mettre au défi et renforcer ce que vous avez appris. Consultez la vidéo "Utilisation des espaces de code GitHub avec ce cours" pour savoir comment mettre en place un espace de code. 
+
+
 ## Instructions
 
 Ce dossier Repository a des branches pour chacune des vidéos du cours. Vous pouvez utiliser le menu des Branches sur GitHub afin d’accéder aux passages qui vous intéressent. Vous pouvez également rajouter `/tree/BRANCH_NAME` à l’URL afin d’accéder à la branche qui vous intéresse. 
