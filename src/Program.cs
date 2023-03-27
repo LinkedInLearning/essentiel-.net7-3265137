@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
+using System.Threading;
 
 namespace app_05
 {
@@ -21,6 +23,8 @@ namespace app_05
         };
     static void Main(string[] args)
     {
+      // Thread.GetDomain().SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
+      // Console.WriteLine(Thread.CurrentPrincipal.Identity.Name);
       var annuaire = utilisateurs.ToDictionary(u => u.Identifiant.ToLowerInvariant());
 
       Console.Write("Identifiant : ");
@@ -38,10 +42,15 @@ namespace app_05
           && utilisateur.Authentifier(identifiant, hashMdp))
       {
         Console.WriteLine("Connexion acceptée");
+        Thread.CurrentPrincipal = new GenericPrincipal(
+            new GenericIdentity(utilisateur.Identifiant),
+            utilisateur.Roles.Select(r => r.ToString()).ToArray()
+        );
       }
       else
       {
         Console.WriteLine("Identifiant ou mot de passe inconnu");
+        Thread.GetDomain().SetPrincipalPolicy(PrincipalPolicy.UnauthenticatedPrincipal);
       }
     }
 
