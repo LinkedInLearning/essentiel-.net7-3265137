@@ -20,9 +20,8 @@ namespace app_04
       });
       builder.ConfigureServices((context, services) =>
       {
-        services.AddHostedService(_ => new AppService(
-            context.Configuration.GetValue("options:msg", "ok") ?? "ok"
-        ));
+        services.AddSingleton<IMessageProvider, IncMessageService>();
+        services.AddHostedService<AppService>();
       });
       using var host = builder.Build();
 
