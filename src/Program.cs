@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Xml;
 
 namespace persist_06
 {
@@ -17,6 +19,38 @@ namespace persist_06
                 </valeurs>
                 </racine>";
 
+      XmlDocument doc = new();
+
+      doc.LoadXml(source);
+      Console.WriteLine(doc.DocumentElement.GetAttribute("nombre-valeurs"));
+      foreach (var val in doc.GetElementsByTagName("val"))
+      {
+        Console.WriteLine($"- {(val as XmlElement).InnerText}");
+      }
+
+      using (StringReader str = new(source))
+      using (var reader = XmlReader.Create(str))
+      {
+        if (!reader.ReadToFollowing("racine"))
+        {
+          Console.Error.WriteLine("Racine introuvable");
+        }
+        if (!int.TryParse(reader.GetAttribute("nombre-valeurs"), out var nb))
+        {
+          nb = 0;
+        }
+        Console.WriteLine($"{nb} valeur(s)");
+        if (reader.ReadToFollowing("valeurs"))
+        {
+          while (reader.Read())
+          {
+            if (reader.NodeType == XmlNodeType.Element && reader.Name == "val")
+            {
+              Console.WriteLine($"- {reader.ReadInnerXml()}");
+            }
+          }
+        }
+      }
     }
   }
 }
