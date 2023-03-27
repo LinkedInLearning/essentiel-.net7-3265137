@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,22 +22,26 @@ namespace com_06
         return;
       }
       var adresses = args.Select(adr => IPEndPoint.Parse(adr));
+      using Socket udp = new Socket(SocketType.Dgram, ProtocolType.Udp);
+
+      udp.Bind(new IPEndPoint(IPAddress.Any, adresses.First().Port));
 
       // Réception
       using CancellationTokenSource source = new();
       CancellationToken jeton = source.Token;
 
-      Task.Run(() =>
+      Task.Run(async () =>
       {
+        EndPoint quiconque = new IPEndPoint(IPAddress.Any, 0);
         var mem = new byte[1024];
         ArraySegment<byte> buffer = new(mem);
 
         while (!jeton.IsCancellationRequested)
         {
-          // Lecture du message (et des informations de l'émetteur)
+          var res = await udp.ReceiveFromAsync(buffer, SocketFlags.None, quiconque, jeton);
           var msg = Encoding.UTF8.GetString(buffer);
 
-          Console.WriteLine(msg);
+          Console.WriteLine($"{res.RemoteEndPoint} : {msg}");
           Array.Fill<byte>(mem, 0);
         }
       }, jeton);
@@ -46,11 +51,11 @@ namespace com_06
 
       do
       {
-        msg = Console.ReadLine() ?? "bye";
+        msg = Console.ReadLine();
         foreach (var adr in adresses.Skip(1))
         {
           var octets = Encoding.UTF8.GetBytes(msg);
-          // Envoi du message aux autres
+          udp.SendTo(octets, octets.Length, SocketFlags.None, adr);
         }
       }
       while (!msg.Equals("bye", StringComparison.InvariantCultureIgnoreCase));
