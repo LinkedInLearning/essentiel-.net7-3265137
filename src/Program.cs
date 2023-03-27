@@ -1,23 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace com_01
 {
-    class Program
+  class Program
+  {
+    static async Task Main(string[] args)
     {
-        static void Main(string[] args)
-        {   
-            using HttpClient http = new() { BaseAddress = new Uri("https://petstore.swagger.io/v2/") };
+      using HttpClient http = new() { BaseAddress = new Uri("https://petstore.swagger.io/v2/") };
 
-            // Animaux vendus
-            var vendus = http.GetAsync("pet/findByStatus?status=sold"); 
+      var vendus = http.GetFromJsonAsync<IEnumerable<Pet>>("pet/findByStatus?status=sold"); // Animaux vendus
+      var disponibles = http.GetFromJsonAsync<IEnumerable<Pet>>("pet/findByStatus?status=available"); // Animaux disponibles
 
-            Console.WriteLine(vendus.Result.Content.ReadAsStringAsync().Result);
-            
-            // Animaux disponibles
-            var disponibles = http.GetAsync("pet/findByStatus?status=available"); 
-            
-            Console.WriteLine(disponibles.Result.Content.ReadAsStringAsync().Result);
-        }        
+      foreach (var p in (await vendus).Union(await disponibles))
+      {
+        Console.WriteLine(p);
+      }
     }
+
+    public record Pet(long Id, string Name, string[] PhotoUrls, string Status);
+  }
 }
