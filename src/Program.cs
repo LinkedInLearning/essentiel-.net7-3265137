@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace com_04
 {
@@ -10,8 +12,16 @@ namespace com_04
     static void Main(string[] args)
     {
       ConcurrentBag<string> sac = new();
+      TcpListener serveur = new(IPAddress.Any, 10_000);
+      TaskFactory clients = new();
 
+      serveur.Start();
+      for (; ; )
+      {
+        var tcpClient = serveur.AcceptTcpClient();
 
+        clients.StartNew(o => Servir(o as TcpClient, sac), tcpClient);
+      }
     }
 
     static async void Servir(TcpClient tcp, ConcurrentBag<string> sac)
