@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace app_01
 {
@@ -60,12 +62,7 @@ namespace app_01
                 new Pays("Ukraine"           , 603628m),
                 new Pays("Vatican"           , 0.4m)
             };
-      Dictionary<string, Pays> pays = new();
-
-      foreach (var p in listePays)
-      {
-        pays[p.Nom] = p;
-      }
+      var pays = listePays.ToDictionary(p => p.Nom);
       var villes = new List<Ville> {
                 new Ville("Athènes"          ,  3495000, pays["Grèce"] ),
                 new Ville("Barcelone"        ,  4849691, pays["Espagne"] ),
@@ -89,11 +86,41 @@ namespace app_01
             };
 
       // - Filtrer
+      var moins1000km2 = listePays.Where(p => p.Superficie < 1000m);
+
+      foreach (var élément in moins1000km2)
+      {
+        Console.WriteLine(élément);
+      }
+
+      var top5pays = villes
+          .OrderByDescending(v => v.Population)
+          .Select(v => v.Pays)
+          .Distinct()
+          .Take(5);
+
+      foreach (var élément in top5pays)
+      {
+        Console.WriteLine(élément);
+      }
 
       // - Agréger
+      var moyenneSuperficiePaysVilles5M = villes
+          .Where(v => v.Population > 5_000_000)
+          .Average(v => v.Pays.Superficie);
+
+      Console.WriteLine($"Superficie moyenne : {moyenneSuperficiePaysVilles5M:0.0} km²");
+
+      var listeTop5 = top5pays.Aggregate(
+          new StringBuilder(),
+          (sb, p) => sb.Append(sb.Length == 0 ? p.Nom : $", {p.Nom}")
+      );
+      Console.WriteLine(listeTop5);
 
       // - Convertir
+      var noms = listePays.Select(p => p.Nom).OrderBy(nom => nom).ToList();
 
+      Console.WriteLine($"Position de 'France' : {noms.BinarySearch("France")}");
     }
   }
 }
