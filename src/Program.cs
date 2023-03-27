@@ -1,67 +1,38 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
 namespace app_02
 {
+  // dotnet add package System.Configuration.ConfigurationManager
   class Program
   {
     public record Pays(string Nom, decimal Superficie);
     public record Ville(string Nom, int Population, Pays Pays);
     static void Main(string[] args)
     {
-      List<Pays> listePays = new() {
-                new Pays("Albanie"           , 28748m),
-                new Pays("Allemagne"         , 357578m),
-                new Pays("Andorre"           , 468m),
-                new Pays("Arménie"           , 29743m),
-                new Pays("Autriche"          , 83870m),
-                new Pays("Belgique"          , 30528m),
-                new Pays("Biélorussie"       , 207600m),
-                new Pays("Bosnie-Herzégovine", 51129m),
-                new Pays("Bulgarie"          , 110910m),
-                new Pays("Chypre"            , 9251m),
-                new Pays("Croatie"           , 56542m),
-                new Pays("Danemark"          , 43094m),
-                new Pays("Espagne"           , 518000m),
-                new Pays("Estonie"           , 45226m),
-                new Pays("Finlande"          , 338145m),
-                new Pays("France"            , 643801m),
-                new Pays("Géorgie"           , 69700m),
-                new Pays("Grèce"             , 131940m),
-                new Pays("Hongrie"           , 93030m),
-                new Pays("Irlande"           , 70280m),
-                new Pays("Islande"           , 103000m),
-                new Pays("Italie"            , 301234m),
-                new Pays("Kosovo"            , 10887m),
-                new Pays("Lettonie"          , 64589m),
-                new Pays("Liechtenstein"     , 160m),
-                new Pays("Lituanie"          , 65200m),
-                new Pays("Luxembourg"        , 2586m),
-                new Pays("Macédoine du Nord" , 25333m),
-                new Pays("Malte"             , 316m),
-                new Pays("Moldavie"          , 33843m),
-                new Pays("Monaco"            , 2m),
-                new Pays("Monténégro"        , 13800m),
-                new Pays("Norvège"           , 324220m),
-                new Pays("Pays-Bas"          , 41526m),
-                new Pays("Pologne"           , 312685m),
-                new Pays("Portugal"          , 92042m),
-                new Pays("Roumanie"          , 237500m),
-                new Pays("Royaume-Uni"       , 244820m),
-                new Pays("Russie"            , 17075200m),
-                new Pays("Saint-Marin"       , 61m),
-                new Pays("Serbie"            , 77589m),
-                new Pays("Slovaquie"         , 48845m),
-                new Pays("Slovénie"          , 20273m),
-                new Pays("Suède"             , 450295m),
-                new Pays("Suisse"            , 41290m),
-                new Pays("Tchéquie"          , 78866m),
-                new Pays("Turquie"           , 783562m),
-                new Pays("Ukraine"           , 603628m),
-                new Pays("Vatican"           , 0.4m)
-            };
+      var conf = ConfigurationManager.AppSettings;
+
+      Console.WriteLine(ConfigurationManager.AppSettings["accueil"]);
+      if (!int.TryParse(conf["top"], out int top))
+      {
+        top = 5;
+      }
+      var infosPays = ConfigurationManager.GetSection("infos/pays") as Hashtable ?? new Hashtable();
+      var listePays = infosPays
+          .Cast<DictionaryEntry>()
+          .Select(paire => new Pays(
+              paire.Key.ToString(),
+              decimal.Parse(
+                paire.Value.ToString(), 
+                CultureInfo.InvariantCulture
+              )
+          ));
+
       var pays = listePays.ToDictionary(p => p.Nom);
       var villes = new List<Ville> {
                 new Ville("Athènes"          ,  3495000, pays["Grèce"] ),
@@ -97,7 +68,7 @@ namespace app_02
           .OrderByDescending(v => v.Population)
           .Select(v => v.Pays)
           .Distinct()
-          .Take(5);
+          .Take(top);
 
       foreach (var élément in top5pays)
       {
