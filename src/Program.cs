@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ExceptionServices;
 
 namespace ctrl_07
 {
@@ -7,17 +9,31 @@ namespace ctrl_07
   {
     static void AfficherEntiers(IEnumerable<string> valeurs)
     {
+      List<Exception> errs = new();
       foreach (var val in valeurs)
       {
-        Console.WriteLine(int.Parse(val));
+        try
+        {
+          Console.WriteLine(int.Parse(val));
+        }
+        catch (Exception e)
+        {
+          errs.Add(e);
+        }
+      }
+      if (errs.Count > 0)
+      {
+        throw new AggregateException(errs);
       }
     }
     static void GestionCentralisée(Exception e)
     {
+      var infos = ExceptionDispatchInfo.Capture(e);
+
       Console.ForegroundColor = ConsoleColor.Red;
       Console.Error.WriteLine(e.Message);
       Console.Error.WriteLine(e.StackTrace);
-      throw e;
+      infos.Throw();
     }
     static void Main(string[] args)
     {
@@ -27,13 +43,13 @@ namespace ctrl_07
       {
         AfficherEntiers(valeurs);
       }
-      catch (Exception e)
+      catch (AggregateException e)
       {
-        Console.Error.WriteLine(e.Message);
+        Console.Error.WriteLine(String.Join(", ", e.InnerExceptions.Select(x => x.Message)));
       }
       try
       {
-        int.Parse("123");
+        int.Parse("toto");
       }
       catch (Exception e)
       {
