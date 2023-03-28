@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace info_01
 {
@@ -6,28 +7,30 @@ namespace info_01
   {
     static void Main(string[] args)
     {
-      var liste = @"pique 
+      var liste = """
+                pique
                 cœur
                 trèfle
-                carreau";
+                carreau
+                """;
 
-      foreach (var couleur in liste)
+      foreach (var couleur in liste.ToUpper().Split("\r\n"))
       {
-        Console.WriteLine(couleur);
+        Console.WriteLine($"| {couleur.PadRight(10)} |");
       }
-
-      /*            
-      var text = "Nombres";
+      
+      StringBuilder text = new("Nombres");
       var sep = " : ";
 
-      for(var i=1; i<=7; i++) {
-          text += $"{sep}{i}";
-          sep=", ";
+      for (var i = 1; i <= 7; i++)
+      {
+        text.Append(sep);
+        text.Append(i);
+        sep = ", ";
       }
-      Console.WriteLine(text);
-      text = text.Insert(7, " de 1 à 7");
-      Console.WriteLine(text);
-      */
+      Console.WriteLine(text.ToString());
+      text.Insert(7, " de 1 à 7");
+      Console.WriteLine(text.ToString());
     }
   }
 }
