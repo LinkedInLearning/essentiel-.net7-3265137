@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace ctrl_01
 {
@@ -10,6 +12,15 @@ namespace ctrl_01
     {
       var builder = Host.CreateDefaultBuilder();
 
+      builder.ConfigureLogging(logging =>
+      {
+        logging.AddSimpleConsole(options =>
+        {
+          options.IncludeScopes = true;
+          options.ColorBehavior = LoggerColorBehavior.Enabled;
+          options.TimestampFormat = "hh:mm:ss ";
+        });
+      });
       builder.ConfigureAppConfiguration((context, configuration) =>
       {
         var env = context.HostingEnvironment.EnvironmentName;

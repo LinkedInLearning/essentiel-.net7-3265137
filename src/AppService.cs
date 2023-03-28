@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ctrl_01
 {
@@ -10,12 +11,13 @@ namespace ctrl_01
   {
     private IConfiguration ConfService { get; init; }
     private IMessageProvider MsgService { get; init; }
-
-    public AppService(IConfiguration conf, IMessageProvider msg)
-        => (ConfService, MsgService) = (conf, msg);
+    private ILogger<AppService> Log { get; init; }
+    public AppService(IConfiguration conf, IMessageProvider msg, ILogger<AppService> log)
+        => (ConfService, MsgService, Log) = (conf, msg, log);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+      Log.LogWarning($"Début {nameof(ExecuteAsync)}");
       while (!stoppingToken.IsCancellationRequested)
       {
         Console.WriteLine(MsgService.NextMessage);
@@ -23,8 +25,9 @@ namespace ctrl_01
         {
           await Task.Delay(500);
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException e)
         {
+          Log.LogWarning(e.Message);
           break;
         }
       }
