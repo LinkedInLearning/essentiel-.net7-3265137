@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace ctrl_04
 {
@@ -17,15 +19,20 @@ namespace ctrl_04
         CourrielSupport = "supportsite.example",
         Retrait = DateTime.Now
       };
-      try
-      {
-        ValidationContext validationProduit = new(p);
+      ValidationContext validationProduit = new(p);
+      List<ValidationResult> résultats = new();
 
-        Validator.ValidateObject(p, validationProduit);
-      }
-      catch (Exception e)
+      if (Validator.TryValidateObject(p, validationProduit, résultats, true))
       {
-        Console.Error.WriteLine(e);
+        Console.WriteLine("Fiche produit correctement remplie.");
+      }
+      else
+      {
+        Console.Error.WriteLine("Erreurs dans la fiche produit :");
+        foreach (var res in résultats)
+        {
+          Console.Error.WriteLine($"- {res.MemberNames.First()} : {res.ErrorMessage}");
+        }
       }
     }
   }
