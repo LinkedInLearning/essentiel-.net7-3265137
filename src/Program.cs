@@ -9,9 +9,9 @@ namespace ctrl_05
     {
       Csv csv = new(new StringReader(EXEMPLE));
 
-      foreach (var ligne in csv.Lignes)
+      foreach (dynamic ligne in csv.Lignes)
       {
-        Console.WriteLine($"{ligne["Id"]} {ligne["Prénom"]} {ligne["Nom"]} ({ligne["Courriel"]})");
+        Console.WriteLine($"{ligne.Id} {ligne.Prénom} {ligne.Nom} ({ligne.Courriel})");
       }
     }
 
