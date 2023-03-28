@@ -1,4 +1,8 @@
-﻿namespace persist_05
+﻿using System.Reflection;
+using System.Text;
+using System.Text.Json;
+
+namespace persist_05
 {
   class Program
   {
@@ -10,8 +14,8 @@
         chaine = "toto",
         tableau = new object?[] { null, 3.2, true }
       };
+      Console.WriteLine(JsonSerializer.Serialize(obj));
 
-      /*
       using (MemoryStream mem = new())
       {
         JsonWriterOptions options = new()
@@ -36,25 +40,24 @@
         }
         Console.WriteLine(Encoding.UTF8.GetString(mem.ToArray()));
       }
-      */
 
       // lecture
-      /*
-      var inconnu = """
+      var inconnu = JsonDocument.Parse("""
         {
           "nombre-valeurs": 3,
           "valeurs": [ 25.2, "titi", null ]
         }
-        """;
+        """);
 
-      Console.WriteLine($"Lu dans 'nombre-valeurs' : {inconnu}");
-
-      Console.WriteLine("Contenu de 'valeurs'");
-      foreach (var val in Array.Empty<string>())
+      if (inconnu.RootElement.TryGetProperty("nombre-valeurs", out var a))
       {
-        Console.WriteLine($"- {val} ({val})");
+        Console.WriteLine($"Lu dans 'nombre-valeurs' : {inconnu}");
       }
-      */
+      Console.WriteLine("Contenu de 'valeurs'");
+      foreach (var val in inconnu.RootElement.GetProperty("valeurs").EnumerateArray())
+      {
+        Console.WriteLine($"- {val} ({val.ValueKind})");
+      }
     }
   }
 }
