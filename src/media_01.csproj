@@ -6,5 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource LogicalName="chat" Include="res/img/chat.jpeg" />
+    <EmbeddedResource ManifestResourceName="strings" Include = "res/txt/strings.resources" />
+    <EmbeddedResource ManifestResourceName="strings" Include = "res/txt/strings.fr.resources" >
+      <Culture>fr</Culture>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>

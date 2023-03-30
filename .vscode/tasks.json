@@ -3,6 +3,35 @@
   "tasks": [
     {
       "label": "build",
+      "dependsOn": [
+/*  // Avec resgen
+        "clean-res",
+        "build-res",*/
+        "build-code"
+      ],
+      "dependsOrder": "sequence"
+    },
+/*  // Avec resgen
+    {
+      // resgen bug
+      "label": "clean-res",
+      "command": "rm",
+      "type": "shell",
+      "args": [
+        "${workspaceFolder}/src/res/txt/*.resources"
+      ]
+    },
+    {
+      "label": "build-res",
+      "command": "resgen",
+      "type": "shell",
+      "args": [
+        "/compile",
+        "${workspaceFolder}/src/res/txt/*"
+      ]
+    },*/
+    {
+      "label": "build-code",
       "command": "dotnet",
       "type": "process",
       "args": [
