@@ -4,22 +4,25 @@ using System.Runtime.Versioning;
 
 namespace media_04
 {
-  class Program
-  {
-    [SupportedOSPlatform("windows")]
-    static void Main(string[] args)
+    class Program
     {
-      using var img = Image.FromFile("chat.jpeg");
+        [SupportedOSPlatform("windows")]
+        static void Main(string[] args)
+        {
+            using var vignette = Image.FromFile("vignette-chat.png");
+            using var gCadre = Graphics.FromImage(vignette);
+            Rectangle rcCadre = new(x: 295, y: 7, width: 270, height: 270);
 
-      img.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            gCadre.DrawRectangle(Pens.Red, rcCadre);
+            vignette.Save("cadre-chat.png", ImageFormat.Png);
 
-      using var vignette = img.GetThumbnailImage(
-          img.Width / 10,
-          img.Height / 10,
-          () => false,
-          IntPtr.Zero
-      );
-      vignette.Save("vignette-chat.png", ImageFormat.Png);
+            rcCadre.Inflate(-1, -1);
+
+            using var profil = new Bitmap(rcCadre.Width, rcCadre.Height, gCadre);
+            using var gProfil = Graphics.FromImage(profil);
+
+            gProfil.DrawImage(vignette, 0, 0, rcCadre, GraphicsUnit.Pixel);
+            profil.Save("profil.jpg", ImageFormat.Jpeg);
+        }
     }
-  }
 }
