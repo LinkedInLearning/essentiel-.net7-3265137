@@ -4,7 +4,7 @@ Ce dossier Repository est lié au cours `L'essentiel de .NET 7`. Le cours entier
 
 ![Nom final de la formation][lil-thumbnail-url][Copy&Past Image from LiL-Buddy] 
 
-Dans cette formation qui s'adresse aux développeurs aussi bien débutants que confirmés, vous découvrirez .NET 7, une version unifiée pour les systèmes desktop, mobile et web du framework de Microsoft. Après un rapide tour d'horizon, vous créerez un premier projet puis vous apprendrez à manipuler les données, texte, date, expressions et objets. Vous verrez comment organiser votre application et comment tirer parti des médias, avant de garantir la persistance puis à faire communiquer les applications. Cette formation se terminera sur le contrôle de l'état du programme.
+Si vous êtes développeur, découvrez ce cours pour créer et gérer des applications en environnement .NET.  Sylvain Labasse vous partage son expérience en langage de programmation afin de mettre en place un premier projet de développement et de prendre en main les données texte, date, expressions et objets. Vous allez voir comment utiliser des médias pour garantir la persistance, faire communiquer les applications entre elles et tirer parti du contrôle de l'état du programme. 
 
 Ce cours est intégré à GitHub Codespaces, un environnement de développement instantané « dans le nuage » qui offre toutes les fonctionnalités de votre IDE préféré sans nécessiter de configuration sur une machine locale. Avec Codespaces, vous pouvez vous exercer à partir de n'importe quelle machine, à tout moment, tout en utilisant un outil que vous êtes susceptible de rencontrer sur votre lieu de travail.  
 
