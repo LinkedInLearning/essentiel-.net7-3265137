@@ -2,7 +2,7 @@
 
 Ce dossier Repository est lié au cours `L'essentiel de .NET 7`. Le cours entier est disponible sur [LinkedIn Learning][lil-course-url].
 
-![Nom final de la formation][lil-thumbnail-url][Copy&Past Image from LiL-Buddy] 
+![Nom final de la formation][lil-thumbnail-url]
 
 Si vous êtes développeur, découvrez ce cours pour créer et gérer des applications en environnement .NET.  Sylvain Labasse vous partage son expérience en langage de programmation afin de mettre en place un premier projet de développement et de prendre en main les données texte, date, expressions et objets. Vous allez voir comment utiliser des médias pour garantir la persistance, faire communiquer les applications entre elles et tirer parti du contrôle de l'état du programme. 
 
