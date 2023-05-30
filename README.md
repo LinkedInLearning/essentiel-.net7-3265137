@@ -32,7 +32,7 @@ La branche `02_03_f` correspond au code à la fin de la vidéo.
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
 [lil-course-url]: https://www.linkedin.com/learning/l-essentiel-de-dot-net-7
-[lil-thumbnail-url]: https://cdn.lynda.com/course/2875095/2875095-1615224395432-16x9.jpg
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/D560DAQHKnQugLXMS-Q/learning-public-crop_675_1200/0/1684999222287?e=2147483647&v=beta&t=HlVt3dESLZ8kDPZ86ud5LVWZFyHQ2HiFNydW_PmPf78
 [lil-URL-trainer]: https://www.linkedin.com/learning/instructors/sylvain-labasse
 
 [1]: # (End of FR-Instruction ###############################################################################################)
