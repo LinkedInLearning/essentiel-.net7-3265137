@@ -2,9 +2,9 @@
 
 Ce dossier Repository est lié au cours `L'essentiel de .NET 7`. Le cours entier est disponible sur [LinkedIn Learning][lil-course-url].
 
-![Nom final de la formation][lil-thumbnail-url][Copy&Past Image from LiL-Buddy] 
+![Nom final de la formation][lil-thumbnail-url]
 
-Dans cette formation qui s'adresse aux développeurs aussi bien débutants que confirmés, vous découvrirez .NET 7, une version unifiée pour les systèmes desktop, mobile et web du framework de Microsoft. Après un rapide tour d'horizon, vous créerez un premier projet puis vous apprendrez à manipuler les données, texte, date, expressions et objets. Vous verrez comment organiser votre application et comment tirer parti des médias, avant de garantir la persistance puis à faire communiquer les applications. Cette formation se terminera sur le contrôle de l'état du programme.
+Si vous êtes développeur, découvrez ce cours pour créer et gérer des applications en environnement .NET.  Sylvain Labasse vous partage son expérience en langage de programmation afin de mettre en place un premier projet de développement et de prendre en main les données texte, date, expressions et objets. Vous allez voir comment utiliser des médias pour garantir la persistance, faire communiquer les applications entre elles et tirer parti du contrôle de l'état du programme. 
 
 Ce cours est intégré à GitHub Codespaces, un environnement de développement instantané « dans le nuage » qui offre toutes les fonctionnalités de votre IDE préféré sans nécessiter de configuration sur une machine locale. Avec Codespaces, vous pouvez vous exercer à partir de n'importe quelle machine, à tout moment, tout en utilisant un outil que vous êtes susceptible de rencontrer sur votre lieu de travail.  
 
@@ -32,7 +32,7 @@ La branche `02_03_f` correspond au code à la fin de la vidéo.
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
 [lil-course-url]: https://www.linkedin.com/learning/l-essentiel-de-dot-net-7
-[lil-thumbnail-url]: https://cdn.lynda.com/course/2875095/2875095-1615224395432-16x9.jpg
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/D560DAQHKnQugLXMS-Q/learning-public-crop_675_1200/0/1684999222287?e=2147483647&v=beta&t=HlVt3dESLZ8kDPZ86ud5LVWZFyHQ2HiFNydW_PmPf78
 [lil-URL-trainer]: https://www.linkedin.com/learning/instructors/sylvain-labasse
 
 [1]: # (End of FR-Instruction ###############################################################################################)
